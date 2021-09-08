@@ -1,0 +1,4 @@
+roles/plex/tasks/main.yml: - "{{ plex_logs }}" roles/plex/tasks/main.yml: - "{{ plex_logs 
+}}:/opt/plex/Library/Application Support/Plex Media Server/Logs:rw"
+roles/plex/defaults/main.yml:plex_logs: "{{ docker_home }}/plex/logs" roles/tautulli/tasks/main.yml: - "{{ 
+plex_logs }}" roles/tautulli/tasks/main.yml: - "{{ plex_logs }}:/logs:ro"

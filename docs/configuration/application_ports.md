@@ -56,6 +56,11 @@ By default, applications can be found on the ports listed below.
 | openHAB         | 7778    | Host    | HTTPS          |
 | Organizr        | 10081   | Bridge  | HTTP           |
 | Organizr        | 10444   | Bridge  | HTTPS          |
+| Pi-hole         | 53      | Bridge  | TCP & UDP      |
+| Pi-hole         | 80      | Bridge  | w/o Traefik    |
+| Pi-hole         | 443     | Bridge  | w/o Traefik    |
+| Pi-hole         | 8182    | Bridge  | w/ Traefik     |
+| Pi-hole         | 8183    | Bridge  | w/ Traefik     |
 | Plex            | 32400   | Bridge  | HTTP           |
 | Portainer       | 9000    | Bridge  | HTTP           |
 | Prowlarr        | 9696    | Bridge  | HTTP           |
