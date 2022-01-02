@@ -10,7 +10,11 @@ plex_tv_directory: "{{ tv_root }}"
 plex_photos_directory: "{{ photos_root }}"
 plex_podcasts_directory: "{{ podcasts_root }}"
 plex_music_directory: "{{ music_root }}"
+<<<<<<< HEAD
 plex_anime_directory: "{{ anime_root }}"
+=======
+plex_audiobooks_directory: "{{ audiobooks_root }}"
+>>>>>>> 4711612a8f1ba0ed2c71d2e45d315f5aec6cdcbe
 
 # uid / gid
 plex_user_id: "0"
@@ -23,7 +27,11 @@ plex_tv_permissions: "rw"
 plex_photos_permissions: "rw"
 plex_podcasts_permissions: "rw"
 plex_music_permissions: "rw"
+<<<<<<< HEAD
 plex_anime_permissions: "rw"
+=======
+plex_audiobooks_permissions: "rw"
+>>>>>>> 4711612a8f1ba0ed2c71d2e45d315f5aec6cdcbe
 
 # network
 plex_hostname: "plex"
