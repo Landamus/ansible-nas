@@ -21,11 +21,8 @@
       - "{{ plex_photos_directory }}:/photos:{{ plex_photos_permissions }}"
       - "{{ plex_podcasts_directory }}:/podcasts:{{ plex_podcasts_permissions }}"
       - "{{ plex_music_directory }}:/music:{{ plex_music_permissions }}"
-<<<<<<< HEAD
       - "{{ plex_anime_directory }}:/anime:{{ plex_anime_permissions }}"
-=======
       - "{{ plex_audiobooks_directory }}:/audiobooks:{{ plex_audiobooks_permissions }}"
->>>>>>> 4711612a8f1ba0ed2c71d2e45d315f5aec6cdcbe
     network_mode: "host"
     devices: "{{ plex_devices | default(omit) }}"
     env:

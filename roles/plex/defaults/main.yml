@@ -34,7 +34,7 @@ plex_hostname: "plex"
 plex_memory: "2g"
 
 # Device mappings for the docker container. E.g. To enable hardware transcoding:
- plex_devices:
+plex_devices:
   - "/dev/dri:/dev/dri"
 
 # see https://hub.docker.com/r/linuxserver/plex for details on this setting
