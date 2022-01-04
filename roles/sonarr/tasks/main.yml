@@ -13,6 +13,7 @@
     pull: true
     volumes:
       - "{{ sonarr_tv_directory }}:/tv:rw"
+      - "{{ sonarr_anime_series_directory }}:/anime_series:rw"
       - "{{ sonarr_download_directory }}:/downloads:rw"
       - "{{ sonarr_data_directory }}:/config:rw"
     ports:
