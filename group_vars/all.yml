@@ -16,10 +16,6 @@
 ### Ansible-NAS Applications
 ###
 
-# Media Sourcing
-jellyfin_enabled: false
-youtubedlmaterial_enabled: false
-
 # System Management
 stats_enabled: false
 guacamole_enabled: false
@@ -52,10 +48,6 @@ ubooquity_enabled: false
 
 # Joomla
 joomla_enabled: false
-
-# PyTivo
-pytivo_enabled: false
-
 
 ###
 ### General
@@ -109,6 +101,9 @@ comics_root: "{{ samba_shares_root }}/comics"
 
 # Where photos are stored
 photos_root: "{{ samba_shares_root }}/photos"
+
+# Where paperless_ng consumes documents
+documents_root: "{{ samba_shares_root }}/documents"
 
 # The description that'll appear next to your Ansible-NAS box when browsing your network
 samba_server_string: Ansible NAS
@@ -193,7 +188,7 @@ samba_shares:
     public: yes
     writable: yes
     browsable: yes
-    path: "{{ samba_shares_root }}/audiobooks"
+    path: "{{ audiobooks_root }}"
 
   - name: comics
     comment: 'Comics'
@@ -202,6 +197,14 @@ samba_shares:
     writable: yes
     browseable: yes
     path: "{{ comics_root }}"
+
+  - name: documents
+    comment: 'Documents'
+    guest_ok: yes
+    public: yes
+    writable: yes
+    browseable: yes
+    path: "{{ documents_root }}"
 
 ###
 ### NFS
@@ -243,45 +246,9 @@ joomla_database_password: top_secret
 joomla_port: "8181"
 
 ###
-### PyTivo
-###
-pytivo_available_externally: "false"
-pytivo_config_directory: "{{ docker_home }}/pytivo/config"
-pytivo_movies_directory: "{{ movies_root }}"
-pytivo_tv_directory: "{{ tv_root }}"
-pytivo_photos_directory: "{{ photos_root }}"
-pytivo_music_directory: "{{ music_root }}"
-pytivo_podcasts_directory: "{{ podcasts_root }}"
-pytivo_user_id: "0"
-pytivo_group_id: "0"
-
-
-###
-### YouTubeDL-Material
-###
-youtubedlmaterial_available_externally: "false"
-youtubedlmaterial_data_directory: "{{ docker_home }}/youtubedlmaterial"
-youtubedlmaterial_dl_audio_directory: "{{ downloads_root }}/youtube/audio"
-youtubedlmaterial_dl_video_directory: "{{ downloads_root }}/youtube/video"
-youtubedlmaterial_dl_subscriptions_directory: "{{ downloads_root }}/youtube/subscriptions"
-youtubedlmaterial_port_http: "8998"
-
-
-###
 ### OpenVPN
 ###
 openvpn_config_directory: "{{ docker_home }}/openvpn"
-
-###
-### Stats
-###
-grafana_available_externally: "false"
-telegraf_data_directory: "{{ docker_home }}/telegraf"
-influxdb_data_directory: "{{ docker_home }}/influxdb"
-grafana_data_directory: "{{ docker_home }}/grafana"
-stat_collection_interval: 15s
-grafana_influxdb_port: "8086"
-grafana_port: "3000"
 
 ###
 ### Guacamole
