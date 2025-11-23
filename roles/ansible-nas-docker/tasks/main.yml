@@ -10,6 +10,7 @@
   ansible.builtin.pip:
     name: docker-py
     state: absent
+    extra_args: --break-system-packages
   register: result
   until: result is succeeded
 
@@ -17,6 +18,7 @@
   ansible.builtin.pip:
     name: docker
     state: present
+    extra_args: --break-system-packages
   register: result
   until: result is succeeded
 
@@ -43,3 +45,33 @@
     name: docker
     state: restarted
   when: docker_config.changed
+
+- name: Ensure systemd drop-in directory for docker exists
+  ansible.builtin.file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Add DOCKER_API_VERSION environment to docker systemd unit
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/docker.service.d/10-environment.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      [Service]
+      Environment="DOCKER_API_VERSION=1.43"
+  register: docker_dropin
+
+- name: Reload systemd if docker config or drop-in changed
+  ansible.builtin.command:
+    cmd: systemctl daemon-reload
+  when: docker_config.changed or docker_dropin.changed
+
+- name: Restart Docker when config or drop-in changed
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+  when: docker_config.changed or docker_dropin.changed

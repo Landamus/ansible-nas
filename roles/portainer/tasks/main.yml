@@ -20,7 +20,7 @@
         pull: true
         volumes:
           - "{{ portainer_data_directory }}:/data:rw"
-          - "/var/run/docker.sock:/var/run/docker.sock:ro"
+          - "/var/run/docker.sock:/var/run/docker.sock:rw"
           - "/etc/timezone:/etc/timezone:ro"
         ports:
           - "{{ portainer_port }}:9000"
