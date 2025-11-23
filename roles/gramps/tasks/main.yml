@@ -1,0 +1,37 @@
+---
+- name: Start GRAMPS
+  block:
+    - name: Create GRAMPS Directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ gramps_data_directory }}"
+
+    - name: GRAMPS Docker Container
+      community.docker.docker_container:
+        name: "{{ gramps_container_name }}"
+        image: crccheck/hello-world
+        pull: true
+        volumes:
+          - "{{ gramps_data_directory }}:/gramps:rw"
+        ports:
+          - "{{ gramps_port }}:8000"
+        restart_policy: unless-stopped
+        memory: "{{ gramps_memory }}"
+        labels:
+          traefik.enable: "{{ gramps_available_externally | string }}"
+          traefik.http.routers.gramps.rule: "Host(`{{ gramps_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.gramps.tls.certresolver: "letsencrypt"
+          traefik.http.routers.gramps.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.gramps.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.gramps.loadbalancer.server.port: "8000"
+  when: gramps_enabled is true
+
+- name: Stop GRAMPS
+  block:
+    - name: Stop GRAMPS
+      community.docker.docker_container:
+        name: "{{ gramps_container_name }}"
+        state: absent
+  when: gramps_enabled is false

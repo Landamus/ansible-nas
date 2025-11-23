@@ -1,0 +1,16 @@
+---
+gramps_enabled: false
+gramps_available_externally: false
+
+# directories
+gramps_data_directory: "{{ docker_home }}/gramps"
+
+# network
+gramps_port: "9999"
+gramps_hostname: "gramps"
+
+# specs
+gramps_memory: 2g
+
+# docker
+gramps_container_name: gramps
