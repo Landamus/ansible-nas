@@ -445,9 +445,9 @@
       tags:
         - wallabag
 
-    - role: watchtower
+    - role: wud
       tags:
-        - watchtower
+        - wud
 
     - role: wireshark
       tags:

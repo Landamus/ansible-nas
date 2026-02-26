@@ -1,0 +1,43 @@
+---
+- name: Start WUD
+  block:
+    - name: Create WUD Data Directory
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ wud_data_directory }}"
+
+    - name: WUD Docker Container
+      community.docker.docker_container:
+        name: "{{ wud_container_name }}"
+        image: "{{ wud_image_name }}:{{ wud_image_version }}"
+        pull: true
+        ports:
+          - "{{ wud_port }}:3000"
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+          - "{{ wud_data_directory }}:/data:rw"
+        env:
+          TZ: "{{ ansible_nas_timezone }}"
+          PUID: "{{ wud_user_id }}"
+          PGID: "{{ wud_group_id }}"
+          WUD_AUTO_UPDATE: "{{ wud_auto_update | lower }}"
+        restart_policy: unless-stopped
+        memory: "{{ wud_memory }}"
+        labels:
+          traefik.enable: "{{ wud_available_externally | string }}"
+          traefik.http.routers.wud.rule: "Host(`{{ wud_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.wud.tls.certresolver: "letsencrypt"
+          traefik.http.routers.wud.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.wud.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.wud.loadbalancer.server.port: "3000"
+  when: wud_enabled is true
+
+- name: Stop WUD
+  block:
+    - name: Stop WUD
+      community.docker.docker_container:
+        name: "{{ wud_container_name }}"
+        state: absent
+  when: wud_enabled is false

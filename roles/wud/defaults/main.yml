@@ -1,0 +1,24 @@
+---
+wud_enabled: false
+wud_available_externally: false
+
+# data directory
+wud_data_directory: "{{ docker_home }}/wud"
+
+# network
+# WUD web interface: http://<ansible_nas_host_or_ip>:{{ wud_port }}
+wud_port: "8086"
+wud_hostname: "wud"
+
+# docker
+wud_container_name: "wud"
+wud_image_name: "fmartinou/whats-up-docker"
+wud_image_version: "latest"
+wud_user_id: "0"
+wud_group_id: "0"
+
+# specs
+wud_memory: 512m
+
+# Enable automatic updates
+wud_auto_update: false

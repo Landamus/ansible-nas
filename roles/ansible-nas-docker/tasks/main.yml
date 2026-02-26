@@ -62,7 +62,7 @@
     mode: '0644'
     content: |
       [Service]
-      Environment="DOCKER_API_VERSION=1.43"
+      Environment="DOCKER_API_VERSION=1.24"
   register: docker_dropin
 
 - name: Reload systemd if docker config or drop-in changed
