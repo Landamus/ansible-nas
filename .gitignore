@@ -19,3 +19,4 @@ Session.vim
 
 # IntelliJ
 /.idea/
+inventories/asgard/group_vars/vault.yml
