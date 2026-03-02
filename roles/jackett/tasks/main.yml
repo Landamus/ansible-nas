@@ -12,6 +12,7 @@
       community.docker.docker_container:
         name: "{{ jackett_container_name }}"
         image: "{{ jackett_image_name }}:{{ jackett_image_version }}"
+        pull: true
         volumes:
           - "{{ jackett_data_directory }}:/config:rw"
           - "/etc/localtime:/etc/localtime:ro"
@@ -20,6 +21,7 @@
           - "{{ jackett_port }}:9117"
         env:
           TZ: "{{ ansible_nas_timezone }}"
+          AUTO_UPDATE: "false"
         restart_policy: unless-stopped
         memory: "{{ jackett_memory }}"
         labels:
