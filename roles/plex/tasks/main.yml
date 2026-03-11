@@ -14,6 +14,7 @@
         name: "{{ plex_container_name }}"
         image: "{{ plex_image_name }}:{{ plex_image_version }}"
         pull: true
+        runtime: nvidia
         volumes:
           - "{{ plex_config_directory }}:/config:rw"
           - "{{ plex_logs }}:/opt/plex/Library/Application Support/Plex Media Server/Logs:rw"
@@ -32,6 +33,15 @@
           PUID: "{{ plex_user_id }}"
           PGID: "{{ plex_group_id }}"
           VERSION: "{{ plex_version }}"
+          NVIDIA_VISIBLE_DEVICES: all
+          NVIDIA_DRIVER_CAPABILITIES: all
+        device_requests:
+          - driver: nvidia
+            count: -1
+            capabilities:
+              - ["gpu"]
+              - ["video"]
+              - ["compute"]
         restart_policy: unless-stopped
         memory: "{{ plex_memory }}"
         labels:
