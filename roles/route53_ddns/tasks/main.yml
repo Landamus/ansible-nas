@@ -21,6 +21,8 @@
           SCHEDULE: "{{ route53_schedule | string }}"
         volumes:
           - "{{ route53_data_directory }}/ddns-route53.yml:/etc/ddns-route53/ddns-route53.yml"
+        labels:
+          wud.watch: "true"
         restart_policy: unless-stopped
         memory: "{{ route53_memory }}"
         recreate: "{{ template_config is changed }}"

@@ -43,6 +43,7 @@
           homepage.icon: ispy.png
           homepage.href: "http://{{ ansible_facts['default_ipv4']['address'] }}:{{ ispyagentdvr_webui_port }}"
           homepage.description: Camera Monitoring software
+          wud.watch: "true"
   when: ispyagentdvr_enabled is true
 
 - name: Stop iSpyAgentDVR

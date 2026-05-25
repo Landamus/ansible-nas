@@ -37,6 +37,7 @@
           homepage.name: "Radarr"
           homepage.icon: "radarr"
           homepage.href: "http://{{ ansible_facts['default_ipv4']['address'] }}:{{ radarr_port }}"
+          wud.watch: "true"
 
   when: radarr_enabled is true
 

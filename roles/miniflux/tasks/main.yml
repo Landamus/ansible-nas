@@ -25,6 +25,8 @@
         env:
           POSTGRES_USER: "miniflux"
           POSTGRES_PASSWORD: "supersecure"
+        labels:
+          wud.watch: "true"
         restart_policy: unless-stopped
         memory: "{{ miniflux_postgres_memory }}"
 
@@ -53,6 +55,7 @@
           traefik.http.routers.miniflux.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.miniflux.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.miniflux.loadbalancer.server.port: "8080"
+          wud.watch: "true"
   when: miniflux_enabled is true
 
 - name: Stop Miniflux

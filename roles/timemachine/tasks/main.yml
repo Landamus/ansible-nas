@@ -19,6 +19,8 @@
           SHARENAME: "{{ timemachine_share_name }}"
         volumes:
           - "{{ timemachine_data_directory }}/data:/backups"
+        labels:
+          wud.watch: "true"
         ulimits:
           - "nofile:1048576:1048576"
         network_mode: bridge

@@ -33,6 +33,7 @@
           traefik.http.routers.n8n.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.n8n.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.n8n.loadbalancer.server.port: "5678"
+          wud.watch: "true"
   when: n8n_enabled is true
 
 - name: Stop n8n

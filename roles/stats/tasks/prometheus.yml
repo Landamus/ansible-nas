@@ -53,6 +53,7 @@
           homepage.description: Metrics and alerting
           homepage.widget.type: prometheus
           homepage.widget.url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:{{ stats_prometheus_port }}"
+          wud.watch: "true"
   when: stats_enabled is true
 
 - name: Stop Prometheus

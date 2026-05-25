@@ -53,6 +53,7 @@
           traefik.http.routers.openhab.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.openhab.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.openhab.loadbalancer.server.port: "7777"
+          wud.watch: "true"
   when: openhab_enabled is true
 
 - name: Stop openHAB

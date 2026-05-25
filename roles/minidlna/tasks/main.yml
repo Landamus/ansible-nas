@@ -14,6 +14,8 @@
           MINIDLNA_MEDIA_DIR2: "/media2"
           MINIDLNA_FRIENDLY_NAME: "{{ minidlna_friendly_name }}"
           MINIDLNA_PORT: "{{ minidlna_port }}"
+        labels:
+          wud.watch: "true"
         restart_policy: unless-stopped
         network_mode: host
         memory: "{{ minidlna_memory }}"

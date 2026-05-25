@@ -36,6 +36,7 @@
           traefik.http.routers.krusader.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.krusader.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.krusader.loadbalancer.server.port: "6080"
+          wud.watch: "true"
   when: krusader_enabled is true
 
 - name: Stop Krusader

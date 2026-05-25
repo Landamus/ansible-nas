@@ -26,6 +26,8 @@
           OPS: "{{ minecraft_bedrock_server_ops }}"
           MEMBERS: "{{ minecraft_bedrock_server_members }}"
           VISITORS: "{{ minecraft_bedrock_server_visitors }}"
+        labels:
+          wud.watch: "true"
         restart_policy: unless-stopped
   when: minecraft_bedrock_server_enabled is true
 

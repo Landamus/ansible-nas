@@ -19,6 +19,8 @@
           - "{{ minecraft_server_port }}:25565"
         env:
           EULA: "TRUE"
+        labels:
+          wud.watch: "true"
         restart_policy: unless-stopped
   when: minecraft_server_enabled is true
 

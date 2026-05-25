@@ -58,6 +58,7 @@
           traefik.http.routers.gitea.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.gitea.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.gitea.loadbalancer.server.port: "3000"
+          wud.watch: "true"
   when: gitea_enabled is true
 
 - name: Stop Gitea

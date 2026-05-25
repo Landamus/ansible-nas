@@ -39,6 +39,7 @@
           traefik.http.routers.utorrent.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.utorrent.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.utorrent.loadbalancer.server.port: "8080"
+          wud.watch: "true"
   when: utorrent_enabled is true
 
 - name: Stop uTorrent

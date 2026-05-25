@@ -38,6 +38,7 @@
           homepage.icon: pyload.png
           homepage.href: "http://{{ ansible_facts['default_ipv4']['address'] }}:{{ pyload_port }}"
           homepage.description: Download client
+          wud.watch: "true"
   when: pyload_enabled is true
 
 - name: Stop pyLoad

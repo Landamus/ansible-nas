@@ -35,6 +35,7 @@
           - "{{ apcupsd_device }}:{{ apcupsd_device }}"
         env:
           TZ: "{{ ansible_nas_timezone }}"
+          wud.watch: "true"
         restart_policy: unless-stopped
         memory: "{{ apcupsd_memory }}"
   when: apcupsd_enabled is true

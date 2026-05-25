@@ -42,6 +42,7 @@
           homepage.description: Container management
           homepage.widget.type: portainer
           homepage.widget.url: "https://{{ ansible_facts['default_ipv4']['address'] }}:{{ portainer_port }}"
+          wud.watch: "true"
   when: portainer_enabled is true
 
 - name: Stop Portainer

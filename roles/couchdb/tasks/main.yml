@@ -31,6 +31,7 @@
           traefik.http.routers.couchdb.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.couchdb.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.couchdb.loadbalancer.server.port: "5984"
+          wud.watch: "true"
   when: couchdb_enabled is true
 
 - name: Stop CouchDB

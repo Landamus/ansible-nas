@@ -29,6 +29,7 @@
           traefik.http.routers.tiddlywiki.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.tiddlywiki.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.tiddlywiki.loadbalancer.server.port: "8080"
+          wud.watch: "true"
   when: tiddlywiki_enabled is true
 
 - name: Stop Tiddlywiki

@@ -27,6 +27,7 @@
           homepage.description: IPTV bridge
           homepage.widget.type: xteve
           homepage.widget.url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:{{ threadfin_port }}"
+          wud.watch: "true"
   when: threadfin_enabled is true
 
 - name: Stop Threadfin

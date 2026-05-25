@@ -35,6 +35,7 @@
           traefik.http.routers.ubooquity.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.ubooquity.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.ubooquity.loadbalancer.server.port: "2202"
+          wud.watch: "true"
   when: ubooquity_enabled is true
 
 - name: Stop Ubooquity

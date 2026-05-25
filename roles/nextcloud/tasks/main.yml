@@ -65,6 +65,7 @@
           homepage.description: Open source dropbox alternative
           homepage.widget.type: nextcloud
           homepage.widget.url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:{{ nextcloud_port }}"
+          wud.watch: "true"
   when: nextcloud_enabled is true
 
 - name: Stop Nextcloud

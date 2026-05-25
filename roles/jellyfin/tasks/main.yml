@@ -45,6 +45,7 @@
           homepage.widget.url: "http://{{ ansible_facts['default_ipv4']['address'] }}:{{ jellyfin_port_http }}"
           homepage.widget.enableBlocks: "true"
           homepage.widget.enableNowPlaying: "true"
+          wud.watch: "true"
   when: jellyfin_enabled is true
 
 - name: Stop jellyfin

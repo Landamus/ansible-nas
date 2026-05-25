@@ -35,6 +35,7 @@
           traefik.http.routers.thelounge.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.thelounge.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.thelounge.loadbalancer.server.port: "9000"
+          wud.watch: "true"
   when: thelounge_enabled is true
 
 - name: Stop The Lounge

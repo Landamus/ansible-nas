@@ -57,6 +57,7 @@
           traefik.http.routers.transmission_openvpn.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.transmission_openvpn.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.transmission_openvpn.loadbalancer.server.port: "9091"
+          wud.watch: "true"
   when: transmission_with_openvpn_enabled is true
 
 - name: Stop Transmission with OpenVPM

@@ -43,6 +43,7 @@
           traefik.http.routers.homepage.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.homepage.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.homepage.loadbalancer.server.port: "3000"
+          wud.watch: "true"
   when: homepage_enabled is true
 
 - name: Stop Homepage

@@ -60,6 +60,7 @@
           prometheus.io/scrape: "true"
           prometheus.io/port: "3100"
           prometheus.io/path: "/metrics"
+          wud.watch: "true"
 
     - name: Template Grafana Loki data source
       ansible.builtin.template:

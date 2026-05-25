@@ -56,6 +56,7 @@
           homepage.icon: plex
           homepage.href: http://{{ ansible_facts['default_ipv4']['address'] }}:32400
           homepage.description: Media server
+          wud.watch: "true"
   when: plex_enabled is true
 
 - name: Stop Plex

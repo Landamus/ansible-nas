@@ -37,6 +37,7 @@
           traefik.http.routers.mealie.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.mealie.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.mealie.loadbalancer.server.port: "9000"
+          wud.watch: "true"
   when: mealie_enabled is true
 
 - name: Stop Mealie

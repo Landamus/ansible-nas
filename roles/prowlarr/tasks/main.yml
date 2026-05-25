@@ -35,6 +35,7 @@
           homepage.icon: prowlarr
           homepage.href: "http://{{ ansible_facts['default_ipv4']['address'] }}:{{ prowlarr_port }}"
           homepage.description: Indexer Proxy
+          wud.watch: "true"
 
   when: prowlarr_enabled is true
 

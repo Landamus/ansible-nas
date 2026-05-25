@@ -36,6 +36,7 @@
           homepage.icon: jackett
           homepage.href: http://{{ ansible_facts['default_ipv4']['address'] }}:{{ jackett_port }}
           homepage.description: API Support for your favorite torrent trackers
+          wud.watch: "true"
   when: jackett_enabled is true
 
 - name: Stop Jackett

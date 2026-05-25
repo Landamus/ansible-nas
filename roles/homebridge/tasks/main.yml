@@ -32,6 +32,7 @@
           traefik.http.routers.homebridge.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.homebridge.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.homebridge.loadbalancer.server.port: "8087"
+          wud.watch: "true"
   when: homebridge_enabled is true
 
 - name: Stop Homebridge

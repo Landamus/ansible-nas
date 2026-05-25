@@ -33,6 +33,7 @@
           traefik.http.routers.minio.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.minio.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.minio.loadbalancer.server.port: "9000"
+          wud.watch: "true"
   when: minio_enabled is true
 
 - name: Stop minio

@@ -38,6 +38,7 @@
           traefik.http.routers.znc.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.znc.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.znc.loadbalancer.server.port: "6677"
+          wud.watch: "true"
   when: znc_enabled is true
 
 - name: Stop ZNC

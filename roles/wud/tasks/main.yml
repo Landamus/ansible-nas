@@ -22,6 +22,8 @@
           TZ: "{{ ansible_nas_timezone }}"
           PUID: "{{ wud_user_id }}"
           PGID: "{{ wud_group_id }}"
+          WUD_TRIGGER_DOCKER_LOCAL_UPDATE: "true"
+          WUD_TRIGGER_DOCKER_LOCAL_THRESHOLD: "minor"
           WUD_AUTO_UPDATE: "{{ wud_auto_update | lower }}"
         restart_policy: unless-stopped
         memory: "{{ wud_memory }}"
@@ -32,6 +34,7 @@
           traefik.http.routers.wud.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.wud.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.wud.loadbalancer.server.port: "3000"
+          wud.watch: "true"
   when: wud_enabled is true
 
 - name: Stop WUD

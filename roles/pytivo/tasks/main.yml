@@ -38,6 +38,7 @@
           traefik.http.routers.pytivo.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.pytivo.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.pytivo.loadbalancer.server.port: "9032"
+          wud.watch: "true"
   when: pytivo_enabled is true
 
 - name: Stop Pytivo

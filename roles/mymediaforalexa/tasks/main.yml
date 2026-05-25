@@ -17,6 +17,8 @@
         volumes:
           - "{{ mymediaforalexa_media_directory }}:/medialibrary:rw"
           - "{{ mymediaforalexa_data_directory }}:/datadir:rw"
+        labels:
+          wud.watch: "true"
         network_mode: host
         restart_policy: unless-stopped
         memory: "{{ mymediaforalexa_memory }}"

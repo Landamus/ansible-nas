@@ -34,6 +34,7 @@
           traefik.http.routers.couchpotato.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.couchpotato.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.couchpotato.loadbalancer.server.port: "5050"
+          wud.watch: "true"
   when: couchpotato_enabled is true
 
 - name: Stop Couchpotato

@@ -33,6 +33,7 @@
           homepage.icon: silverbullet
           homepage.href: http://{{ ansible_facts['default_ipv4']['address'] }}:{{ silverbullet_port }}
           homepage.description: Notes for developers
+          wud.watch: "true"
   when: silverbullet_enabled is true
 
 - name: Stop Silverbullet

@@ -35,6 +35,7 @@
           traefik.http.routers.navidrome.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.navidrome.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.navidrome.loadbalancer.server.port: "4533"
+          wud.watch: "true"
   when: navidrome_enabled is true
 
 - name: Stop Navidrome

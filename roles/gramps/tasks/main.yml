@@ -26,6 +26,7 @@
           traefik.http.routers.gramps.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.gramps.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.gramps.loadbalancer.server.port: "8000"
+          wud.watch: "true"
   when: gramps_enabled is true
 
 - name: Stop GRAMPS

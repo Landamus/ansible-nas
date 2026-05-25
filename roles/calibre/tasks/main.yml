@@ -37,6 +37,7 @@
           traefik.http.routers.calibre.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.calibre.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.calibre.loadbalancer.server.port: "8080"
+          wud.watch: "true"
   when: calibre_enabled is true
 
 - name: Stop Calibre

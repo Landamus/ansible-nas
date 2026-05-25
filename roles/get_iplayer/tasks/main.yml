@@ -21,6 +21,8 @@
           - "{{ get_iplayer_port }}:8181"
         restart_policy: unless-stopped
         memory: "{{ get_iplayer_memory }}"
+        labels:
+          wud.watch: "true"
   when: get_iplayer_enabled is true
 
 - name: Stop get_iplayer

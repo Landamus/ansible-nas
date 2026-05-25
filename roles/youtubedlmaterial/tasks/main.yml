@@ -45,6 +45,7 @@
           homepage.icon: youtubedl.png
           homepage.href: "http://{{ ansible_facts['default_ipv4']['address'] }}:{{ youtubedlmaterial_port_http }}"
           homepage.description: Youtube downloader client
+          wud.watch: "true"
   when: youtubedlmaterial_enabled is true
 
 - name: Stop Youtubedlmaterial

@@ -28,6 +28,8 @@
         ports:
           - "{{ mosquitto_port_a }}:1883"
           - "{{ mosquitto_port_b }}:9001"
+        labels:
+          wud.watch: "true"
         restart_policy: unless-stopped
         restart: "{{ mosquitto_conf is changed }}"
         memory: 1g

@@ -34,6 +34,7 @@
           traefik.http.routers.mylar.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.mylar.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.mylar.loadbalancer.server.port: "8090"
+          wud.watch: "true"
   when: mylar_enabled is true
 
 - name: Stop Mylar
