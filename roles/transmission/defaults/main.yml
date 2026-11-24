@@ -5,7 +5,7 @@ transmission_available_externally: false
 # directories
 transmission_config_directory: "{{ docker_home }}/transmission/config"
 transmission_download_directory: "{{ downloads_root }}"
-transmission_watch_directory: "{{ torrents_root }}"
+transmission_watch_directory: "{{ downloads_root }}"
 
 # uid / gid
 transmission_user_id: "0"

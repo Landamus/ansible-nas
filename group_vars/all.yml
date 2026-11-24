@@ -40,9 +40,11 @@ downloads_root: "{{ samba_shares_root }}/downloads"
 
 # Where your movies are stored
 movies_root: "{{ samba_shares_root }}/movies"
+anime_movies_root: "{{ samba_shares_root }}/anime_movies"
 
 # Where your TV episodes are stored
 tv_root: "{{ samba_shares_root }}/tv"
+anime_series_root: "{{ samba_shares_root }}/anime_series"
 
 # Where torrent files are stored (picked up by Transmission for downloading)
 torrents_root: "{{ samba_shares_root }}/torrents"
@@ -159,7 +161,7 @@ samba_shares:
     guest_ok: yes
     public: yes
     writable: yes
-    browsable: yes
+    browseable: yes
     path: "{{ audiobooks_root }}"
 
   - name: comics

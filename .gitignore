@@ -5,6 +5,7 @@ site
 *.log
 inventories
 .cache
+.ansible/
 roles/bertvv.samba
 roles/geerlingguy.docker
 roles/geerlingguy.nfs
