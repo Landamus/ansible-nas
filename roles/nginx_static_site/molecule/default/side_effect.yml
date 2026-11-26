@@ -1,0 +1,10 @@
+---
+- name: Stop
+  hosts: all
+  become: true
+  tasks:
+    - name: Include Nginx Static Site role with service disabled
+      ansible.builtin.include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+      vars:
+        nginx_static_site_enabled: false

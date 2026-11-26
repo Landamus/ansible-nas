@@ -1,0 +1,109 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  vars:
+    nginx_static_site_container_name: nginx_static_site_molecule
+    nginx_static_site_root: /tmp/ansible-nas/nginx-static-site-molecule
+  tasks:
+    - name: Get container state
+      community.docker.docker_container_info:
+        name: "{{ nginx_static_site_container_name }}"
+      register: nginx_static_site_container
+
+    - name: Check Nginx Static Site is running
+      ansible.builtin.assert:
+        that:
+          - nginx_static_site_container.container['State']['Status'] == "running"
+          - nginx_static_site_container.container['State']['Restarting'] == false
+
+    - name: Validate Nginx configuration
+      community.docker.docker_container_exec:
+        container: "{{ nginx_static_site_container_name }}"
+        argv:
+          - nginx
+          - -t
+      register: nginx_static_site_nginx_test
+      changed_when: false
+
+    - name: Request Nginx landing page
+      community.docker.docker_container_exec:
+        container: "{{ nginx_static_site_container_name }}"
+        argv:
+          - wget
+          - -qO-
+          - http://127.0.0.1:8080/
+      register: nginx_static_site_landing_page
+      changed_when: false
+
+    - name: Check Nginx landing page content
+      ansible.builtin.assert:
+        that:
+          - "'Molecule test page' in nginx_static_site_landing_page.stdout"
+
+    - name: Request the manual front page from the site root
+      community.docker.docker_container_exec:
+        container: "{{ nginx_static_site_container_name }}"
+        argv:
+          - wget
+          - -qO-
+          - http://127.0.0.1:8080/frontPage.htm
+      register: nginx_static_site_front_page
+      changed_when: false
+
+    - name: Check Nginx resolves the manual front page
+      ansible.builtin.assert:
+        that:
+          - "'Molecule front page' in nginx_static_site_front_page.stdout"
+
+    - name: Request a hidden file
+      community.docker.docker_container_exec:
+        container: "{{ nginx_static_site_container_name }}"
+        argv:
+          - wget
+          - -qO-
+          - http://127.0.0.1:8080/.secret
+      register: nginx_static_site_hidden_file
+      changed_when: false
+      failed_when: false
+
+    - name: Check Nginx blocks hidden files
+      ansible.builtin.assert:
+        that:
+          - nginx_static_site_hidden_file.rc != 0
+
+    - name: Request Git metadata
+      community.docker.docker_container_exec:
+        container: "{{ nginx_static_site_container_name }}"
+        argv:
+          - wget
+          - -qO-
+          - http://127.0.0.1:8080/.git/config
+      register: nginx_static_site_git_metadata
+      changed_when: false
+      failed_when: false
+
+    - name: Check Nginx blocks Git metadata
+      ansible.builtin.assert:
+        that:
+          - nginx_static_site_git_metadata.rc != 0
+
+    - name: Check Nginx Static Site directory permissions
+      ansible.builtin.stat:
+        path: "{{ nginx_static_site_root }}/common/html"
+      register: nginx_static_site_test_directory
+
+    - name: Check Nginx Static Site file permissions
+      ansible.builtin.stat:
+        path: "{{ nginx_static_site_root }}/common/html/default.htm"
+      register: nginx_static_site_test_file
+
+    - name: Assert the role leaves source permissions unchanged
+      ansible.builtin.assert:
+        that:
+          - nginx_static_site_test_directory.stat.mode == "0775"
+          - nginx_static_site_test_directory.stat.pw_name == "root"
+          - nginx_static_site_test_directory.stat.gr_name == "root"
+          - nginx_static_site_test_file.stat.mode == "0664"
+          - nginx_static_site_test_file.stat.pw_name == "root"
+          - nginx_static_site_test_file.stat.gr_name == "root"

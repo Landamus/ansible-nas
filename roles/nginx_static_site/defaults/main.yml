@@ -1,0 +1,14 @@
+---
+nginx_static_site_enabled: false
+
+nginx_static_site_root: /srv/nginx-static-site
+nginx_static_site_index: index.html
+nginx_static_site_allowlist: []
+nginx_static_site_config_directory: "{{ docker_home }}/nginx_static_site"
+
+nginx_static_site_bind_address: "{{ ansible_facts['default_ipv4']['address'] }}"
+nginx_static_site_port: "8098"
+
+nginx_static_site_container_name: nginx_static_site
+nginx_static_site_image: nginxinc/nginx-unprivileged:stable-alpine
+nginx_static_site_memory: 256m

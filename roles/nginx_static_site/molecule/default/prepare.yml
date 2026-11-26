@@ -1,0 +1,54 @@
+---
+- name: Prepare
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Docker Python module
+      ansible.builtin.pip:
+        name: docker
+
+    - name: Create Nginx Static Site test directory
+      ansible.builtin.file:
+        path: /tmp/ansible-nas/nginx-static-site-molecule/common/html
+        state: directory
+        owner: root
+        group: root
+        mode: "0775"
+
+    - name: Create Nginx Static Site test index
+      ansible.builtin.copy:
+        content: "Molecule test page\n"
+        dest: /tmp/ansible-nas/nginx-static-site-molecule/common/html/default.htm
+        owner: root
+        group: root
+        mode: "0664"
+
+    - name: Create Nginx Static Site front page
+      ansible.builtin.copy:
+        content: "Molecule front page\n"
+        dest: /tmp/ansible-nas/nginx-static-site-molecule/common/html/frontPage.htm
+        owner: root
+        group: root
+        mode: "0664"
+
+    - name: Create a hidden Nginx Static Site test file
+      ansible.builtin.copy:
+        content: "must not be served\n"
+        dest: /tmp/ansible-nas/nginx-static-site-molecule/.secret
+        mode: "0600"
+
+    - name: Create a Git metadata test directory
+      ansible.builtin.file:
+        path: /tmp/ansible-nas/nginx-static-site-molecule/.git
+        state: directory
+        owner: root
+        group: root
+        mode: "0775"
+
+    - name: Create a Git metadata test file
+      ansible.builtin.copy:
+        content: "must not be served\n"
+        dest: /tmp/ansible-nas/nginx-static-site-molecule/.git/config
+        owner: root
+        group: root
+        mode: "0664"

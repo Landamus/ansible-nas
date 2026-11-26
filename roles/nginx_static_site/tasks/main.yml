@@ -1,0 +1,86 @@
+---
+- name: Start Nginx Static Site
+  block:
+    - name: Check Nginx Static Site directory
+      ansible.builtin.stat:
+        path: "{{ nginx_static_site_root }}"
+      register: nginx_static_site_root_stat
+
+    - name: Ensure Nginx Static Site directory exists
+      ansible.builtin.assert:
+        that:
+          - nginx_static_site_root_stat.stat.exists
+          - nginx_static_site_root_stat.stat.isdir | default(false)
+        fail_msg: >-
+          Nginx Static Site path {{ nginx_static_site_root }} must exist
+          and be a directory.
+
+    - name: Create Nginx Static Site configuration directory
+      ansible.builtin.file:
+        path: "{{ nginx_static_site_config_directory }}"
+        state: directory
+        mode: "0755"
+
+    - name: Configure Nginx Static Site
+      ansible.builtin.template:
+        src: default.conf.j2
+        dest: "{{ nginx_static_site_config_directory }}/default.conf"
+        mode: "0644"
+      register: nginx_static_site_config
+
+    - name: Get existing Nginx Static Site container
+      community.docker.docker_container_info:
+        name: "{{ nginx_static_site_container_name }}"
+      register: nginx_static_site_existing_container
+
+    - name: Check for legacy Nginx Static Site config mount
+      ansible.builtin.set_fact:
+        nginx_static_site_legacy_config_mount: >-
+          {{
+            nginx_static_site_existing_container.container.Mounts
+            | selectattr('Source', 'equalto', nginx_static_site_config_directory ~ '/default.conf')
+            | list
+            | length > 0
+          }}
+      when: nginx_static_site_existing_container.exists
+
+    - name: Check Nginx Static Site port is available
+      ansible.builtin.wait_for:
+        host: "{{ nginx_static_site_bind_address }}"
+        port: "{{ nginx_static_site_port | int }}"
+        state: stopped
+        timeout: 1
+      when: not nginx_static_site_existing_container.exists
+
+    - name: Nginx Static Site Docker Container
+      community.docker.docker_container:
+        name: "{{ nginx_static_site_container_name }}"
+        image: "{{ nginx_static_site_image }}"
+        pull: true
+        recreate: >-
+          {{
+            (nginx_static_site_config.changed and nginx_static_site_existing_container.exists)
+            or (nginx_static_site_legacy_config_mount | default(false))
+          }}
+        restart_policy: unless-stopped
+        memory: "{{ nginx_static_site_memory }}"
+        cap_drop:
+          - ALL
+        security_opts:
+          - no-new-privileges:true
+        ports:
+          - "{{ nginx_static_site_bind_address }}:{{ nginx_static_site_port }}:8080"
+        volumes:
+          - "{{ nginx_static_site_root }}:/usr/share/nginx/html:ro"
+          - "{{ nginx_static_site_config_directory }}:/etc/nginx/conf.d:ro"
+        labels:
+          wud.watch: "true"
+  when: nginx_static_site_enabled is true
+
+- name: Stop Nginx Static Site
+  block:
+    - name: Stop Nginx Static Site
+      community.docker.docker_container:
+        name: "{{ nginx_static_site_container_name }}"
+        state: absent
+  when: nginx_static_site_enabled is false

@@ -185,6 +185,10 @@
       tags:
         - hello_world
 
+    - role: nginx_static_site
+      tags:
+        - nginx_static_site
+
     - role: homeassistant
       tags:
         - homeassistant

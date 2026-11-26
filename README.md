@@ -76,6 +76,7 @@ If you have a spare domain name you can configure applications to be accessible 
 * [Netdata](https://my-netdata.io/) - An extremely comprehensive system monitoring solution
 * [Nextcloud](https://nextcloud.com/) - A self-hosted Dropbox alternative
 * [Nomad](https://www.nomadproject.io/) - A simple and flexible scheduler and software orchestrator
+* [Nginx Static Site](website/docs/applications/other/nginx_static_site.md) - Serve read-only static files over the local network
 * [NZBget](https://nzbget.net/) - The most efficient usenet downloader
 * [Octoprint](https://octoprint.org/) - Control and monitor your 3D printer
 * [Ombi](https://ombi.io/) - web application that automatically gives your users the ability to request content

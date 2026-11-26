@@ -1,0 +1,27 @@
+---
+- name: Verify stopped
+  hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    nginx_static_site_container_name: nginx_static_site_molecule
+  tasks:
+    - name: Get container state
+      community.docker.docker_container_info:
+        name: "{{ nginx_static_site_container_name }}"
+      register: nginx_static_site_container
+
+    - name: Check Nginx Static Site container is absent
+      ansible.builtin.assert:
+        that:
+          - not nginx_static_site_container.exists
+
+    - name: Remove Nginx Static Site test files
+      ansible.builtin.file:
+        path: /tmp/ansible-nas/nginx-static-site-molecule
+        state: absent
+
+    - name: Remove Nginx Static Site test configuration
+      ansible.builtin.file:
+        path: /tmp/ansible-nas/nginx-static-site-config
+        state: absent
